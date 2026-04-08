@@ -127,7 +127,7 @@ function Hero() {
           <p className="font-mono text-lg md:text-xl text-cream/70 mb-4 max-w-xl" style={{ animation: "fadeUp 0.7s 0.4s ease forwards", opacity: 0 }}>
             I build&nbsp;
             <span className="text-cream font-medium">
-              <Typewriter words={["scalable web apps.", "e-commerce platforms.", "beautiful interfaces."]} />
+              <Typewriter words={["scalable web apps.", "e-commerce platforms.", "beautiful interfaces.", "WordPress solutions."]} />
             </span>
           </p>
 
@@ -165,8 +165,6 @@ function Hero() {
           </div>
         </div>
       </div>
-
-
     </section>
   );
 }
@@ -221,6 +219,7 @@ const experiences = [
     company: "Decade",
     period: "July 2025 – Present",
     type: "Full-Time",
+    tags: ["Next.js", "Java", "SAP Commerce Cloud", "TypeScript"],
     points: [
       "Full-Stack engineering with Next.js, Java, and SAP Commerce Cloud",
       "Applying Domain-Driven Design on React/TypeScript front-ends",
@@ -233,6 +232,7 @@ const experiences = [
     company: "Decade (for Rubix)",
     period: "Feb 2025 – Jun 2025",
     type: "Internship",
+    tags: ["Next.js", "TypeScript", "PIM", "Architecture"],
     points: [
       "Led full redesign of a PIM Product Visualizer architecture",
       "Selected modern tech stack & applied software engineering best practices",
@@ -241,10 +241,26 @@ const experiences = [
     ],
   },
   {
+    role: "WordPress Developer",
+    company: "Freelance",
+    period: "2023 – 2024",
+    type: "Freelance",
+    tags: ["WordPress", "Elementor", "WooCommerce", "PHP", "ACF"],
+    points: [
+      "Designed and developed custom WordPress themes from scratch using PHP, HTML, and CSS",
+      "Built WooCommerce stores with custom product templates, checkout flows, and payment gateway integrations",
+      "Created advanced custom fields (ACF) and post types for flexible content management",
+      "Optimized site performance — achieved 90+ Lighthouse scores via caching, lazy loading, and image optimization",
+      "Delivered multilingual sites (Arabic/French/English) with WPML and Polylang",
+      "Maintained and extended existing client sites with plugin customization and security hardening",
+    ],
+  },
+  {
     role: "Full-Stack Developer Intern",
     company: "Tagamuta Valley",
     period: "Jun 2024 – Aug 2024",
     type: "Internship",
+    tags: ["Angular", "Spring Boot", "MySQL"],
     points: [
       "Built a web app with Angular & Spring Boot for CNAM process automation",
       "Digitized and streamlined health insurance application workflows",
@@ -256,6 +272,7 @@ const experiences = [
     company: "Tunisie Telecom",
     period: "Jun 2023 – Jul 2023",
     type: "Internship",
+    tags: ["Networking", "CCNA", "Telecom"],
     points: [
       "Hands-on network troubleshooting (signal, data networks)",
       "Explored mobile technology frameworks and optimization",
@@ -281,25 +298,39 @@ function Experience() {
             {experiences.map((exp, i) => (
               <div key={i} className="reveal md:pl-12 relative group">
                 {/* dot */}
-                <div className="absolute left-0 top-2 w-2 h-2 rounded-full bg-ember -translate-x-[3.5px] hidden md:block group-hover:scale-150 transition-transform" />
+                <div className={`absolute left-0 top-2 w-2 h-2 rounded-full -translate-x-[3.5px] hidden md:block group-hover:scale-150 transition-transform ${exp.type === "Freelance" ? "bg-gold" : "bg-ember"}`} />
 
-                <div className="border border-white/5 p-8 hover:border-ember/20 transition-colors bg-slate/40">
+                <div className={`border p-8 transition-colors ${exp.type === "Freelance" ? "border-gold/10 hover:border-gold/30 bg-gold/[0.02]" : "border-white/5 hover:border-ember/20 bg-slate/40"}`}>
                   <div className="flex flex-wrap items-start justify-between gap-2 mb-4">
                     <div>
                       <h3 className="font-display text-xl text-cream">{exp.role}</h3>
-                      <p className="text-ember font-mono text-sm">{exp.company}</p>
+                      <p className={`font-mono text-sm ${exp.type === "Freelance" ? "text-gold" : "text-ember"}`}>{exp.company}</p>
                     </div>
                     <div className="text-right">
                       <p className="font-mono text-xs text-cream/30">{exp.period}</p>
-                      <span className={`inline-block mt-1 px-2 py-0.5 text-xs font-mono ${exp.type === "Full-Time" ? "bg-ember/10 text-ember border border-ember/20" : "bg-white/5 text-cream/40 border border-white/10"}`}>
+                      <span className={`inline-block mt-1 px-2 py-0.5 text-xs font-mono ${
+                        exp.type === "Full-Time" ? "bg-ember/10 text-ember border border-ember/20" :
+                        exp.type === "Freelance" ? "bg-gold/10 text-gold border border-gold/20" :
+                        "bg-white/5 text-cream/40 border border-white/10"
+                      }`}>
                         {exp.type}
                       </span>
                     </div>
                   </div>
+
+                  {/* Tech tags */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {exp.tags.map((tag) => (
+                      <span key={tag} className="px-2 py-0.5 text-xs font-mono bg-white/5 text-cream/30 border border-white/5">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
                   <ul className="space-y-2">
                     {exp.points.map((p, j) => (
                       <li key={j} className="flex gap-3 text-sm text-cream/50 font-body">
-                        <span className="text-ember mt-0.5 shrink-0">→</span>
+                        <span className={`mt-0.5 shrink-0 ${exp.type === "Freelance" ? "text-gold" : "text-ember"}`}>→</span>
                         {p}
                       </li>
                     ))}
@@ -332,6 +363,11 @@ const skillGroups = [
     items: ["MySQL", "MongoDB", "SQL Developer"],
   },
   {
+    category: "WordPress",
+    icon: "◐",
+    items: ["Custom Themes", "WooCommerce", "ACF", "Elementor", "WPML", "PHP"],
+  },
+  {
     category: "DevOps & Cloud",
     icon: "◳",
     items: ["AWS", "Docker", "Git", "Linux", "Docker Swarm"],
@@ -339,7 +375,7 @@ const skillGroups = [
   {
     category: "Languages",
     icon: "◪",
-    items: ["JavaScript", "Python", "C++", "Java"],
+    items: ["JavaScript", "Python", "C++", "Java", "PHP"],
   },
   {
     category: "Testing",
@@ -360,15 +396,15 @@ function Skills() {
         <div className="stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {skillGroups.map((group) => (
             <div key={group.category}
-              className="border border-white/5 p-6 hover:border-ember/30 hover:bg-ember/5 transition-all group">
+              className={`border p-6 transition-all group ${group.category === "WordPress" ? "border-gold/10 hover:border-gold/30 hover:bg-gold/5" : "border-white/5 hover:border-ember/30 hover:bg-ember/5"}`}>
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-ember text-xl">{group.icon}</span>
+                <span className={`text-xl ${group.category === "WordPress" ? "text-gold" : "text-ember"}`}>{group.icon}</span>
                 <p className="font-mono text-xs tracking-widest uppercase text-cream/40">{group.category}</p>
               </div>
               <div className="flex flex-wrap gap-2">
                 {group.items.map((skill) => (
                   <span key={skill}
-                    className="px-2.5 py-1 text-xs font-mono border border-white/10 text-cream/60 group-hover:border-ember/20 group-hover:text-cream/80 transition-colors">
+                    className={`px-2.5 py-1 text-xs font-mono border transition-colors ${group.category === "WordPress" ? "border-gold/10 text-cream/60 group-hover:border-gold/20 group-hover:text-cream/80" : "border-white/10 text-cream/60 group-hover:border-ember/20 group-hover:text-cream/80"}`}>
                     {skill}
                   </span>
                 ))}
@@ -391,7 +427,166 @@ function Skills() {
   );
 }
 
-/* ─── Projects / Awards ───────────────────────────────────────── */
+/* ─── Projects ────────────────────────────────────────────────── */
+const projects = [
+  {
+    number: "01",
+    title: "Rubix PIM Visualizer",
+    category: "End-of-Studies Project",
+    type: "enterprise",
+    tech: ["Next.js", "TypeScript", "React", "DDD"],
+    desc: "Full redesign of a Product Information Management visualizer for Rubix — a major European industrial distributor. Rebuilt the architecture from scratch, introducing Domain-Driven Design and a modern component library. Resulted in significantly improved load times and maintainability.",
+    highlights: ["Architecture redesign", "DDD implementation", "Performance +40%", "Seamless PIM integration"],
+    link: null,
+  },
+  {
+    number: "02",
+    title: "CNAM Health Insurance Portal",
+    category: "Internship Project",
+    type: "enterprise",
+    tech: ["Angular", "Spring Boot", "MySQL", "REST API"],
+    desc: "End-to-end web application automating health insurance claim workflows for the Tunisian national insurer (CNAM). Digitized paper-based processes, enabling thousands of users to submit and track claims online with real-time status updates.",
+    highlights: ["Full workflow digitization", "RESTful API design", "Role-based access control", "PDF report generation"],
+    link: null,
+  },
+  {
+    number: "03",
+    title: "E-Commerce Store — Fashion Boutique",
+    category: "WordPress / WooCommerce",
+    type: "wordpress",
+    tech: ["WordPress", "WooCommerce", "ACF", "PHP", "Stripe"],
+    desc: "Custom WooCommerce store for a Tunisian fashion boutique. Built a bespoke theme from scratch (no page-builder), implemented a custom product configurator with Advanced Custom Fields, integrated Stripe & local payment gateways, and achieved a 94 Lighthouse performance score.",
+    highlights: ["Custom theme (no builder)", "Stripe + local payment", "94 Lighthouse score", "Arabic RTL support"],
+    link: "#",
+  },
+  {
+    number: "04",
+    title: "Corporate Site — Law Firm",
+    category: "WordPress",
+    type: "wordpress",
+    tech: ["WordPress", "Elementor Pro", "WPML", "PHP"],
+    desc: "Trilingual (Arabic/French/English) corporate website for a Tunis-based law firm. Implemented WPML for seamless language switching with full RTL support, custom post types for case studies and attorney profiles, and a contact form integrated with the firm's CRM.",
+    highlights: ["3-language WPML setup", "Full RTL/Arabic support", "Custom CPTs", "CRM integration"],
+    link: "#",
+  },
+  {
+    number: "05",
+    title: "Restaurant Booking Platform",
+    category: "WordPress",
+    type: "wordpress",
+    tech: ["WordPress", "WooCommerce Bookings", "ACF", "Custom PHP"],
+    desc: "Online reservation and menu showcase site for a Tunis restaurant group with multiple locations. Custom booking logic built on WooCommerce Bookings with location-specific availability, Google Maps integration, and an admin dashboard for managing reservations by branch.",
+    highlights: ["Multi-location bookings", "Google Maps API", "Custom admin panel", "Email automation"],
+    link: "#",
+  },
+  {
+    number: "06",
+    title: "Webcure — Health Hackathon App",
+    category: "Hackathon · 3rd Place",
+    type: "achievement",
+    tech: ["React", "Node.js", "MongoDB", "Express"],
+    desc: "Web app built in 48 hours at ISI Ariana's Web Development hackathon focused on health-tech. The platform connected patients with pharmacies for medication availability checks and allowed users to book teleconsultations. Awarded 3rd place by the jury.",
+    highlights: ["48-hour build", "Teleconsultation module", "Pharmacy stock API", "3rd place · ISI Ariana"],
+    link: null,
+  },
+];
+
+function Projects() {
+  const [filter, setFilter] = useState<"all" | "wordpress" | "enterprise" | "achievement">("all");
+
+  const filtered = filter === "all" ? projects : projects.filter((p) => p.type === filter);
+
+  return (
+    <section id="projects" className="py-32 px-6 border-t border-white/5">
+      <div className="max-w-6xl mx-auto">
+        <div className="reveal mb-10">
+          <p className="font-mono text-xs tracking-[0.3em] text-ember uppercase mb-4">04 · Projects</p>
+          <h2 className="font-display text-4xl md:text-5xl leading-tight">
+            Selected<br /><span className="italic text-gold">Work</span>
+          </h2>
+        </div>
+
+        {/* Filter tabs */}
+        <div className="reveal flex flex-wrap gap-2 mb-12">
+          {(["all", "enterprise", "wordpress", "achievement"] as const).map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={`px-4 py-1.5 font-mono text-xs tracking-widest uppercase transition-all border ${
+                filter === f
+                  ? "bg-ember text-cream border-ember"
+                  : "text-cream/40 border-white/10 hover:border-ember/30 hover:text-cream/70"
+              }`}
+            >
+              {f}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {filtered.map((p) => (
+            <div key={p.number}
+              className={`border p-8 relative group transition-all hover:translate-y-[-2px] ${
+                p.type === "wordpress"
+                  ? "border-gold/10 hover:border-gold/30 hover:shadow-[0_8px_40px_rgba(201,168,76,0.06)]"
+                  : p.type === "achievement"
+                  ? "border-white/5 hover:border-ember/30 hover:shadow-[0_8px_40px_rgba(232,83,42,0.06)]"
+                  : "border-white/5 hover:border-ember/20 hover:shadow-[0_8px_40px_rgba(232,83,42,0.04)]"
+              }`}>
+
+              {/* Number watermark */}
+              <span className="absolute top-4 right-6 font-display text-6xl text-white/[0.03] select-none pointer-events-none">
+                {p.number}
+              </span>
+
+              {/* Category badge */}
+              <div className="flex items-center justify-between mb-4">
+                <span className={`px-2 py-0.5 text-xs font-mono border ${
+                  p.type === "wordpress"
+                    ? "bg-gold/10 text-gold/70 border-gold/20"
+                    : p.type === "achievement"
+                    ? "bg-ember/10 text-ember border-ember/20"
+                    : "bg-white/5 text-cream/30 border-white/10"
+                }`}>
+                  {p.category}
+                </span>
+                {p.link && (
+                  <a href={p.link} className="font-mono text-xs text-cream/20 hover:text-ember transition-colors">
+                    View ↗
+                  </a>
+                )}
+              </div>
+
+              <h3 className="font-display text-2xl text-cream mb-3 leading-tight">{p.title}</h3>
+              <p className="text-sm text-cream/50 font-body leading-relaxed mb-5">{p.desc}</p>
+
+              {/* Highlights */}
+              <div className="grid grid-cols-2 gap-1.5 mb-5">
+                {p.highlights.map((h) => (
+                  <div key={h} className="flex items-center gap-2 text-xs font-mono text-cream/30">
+                    <span className={p.type === "wordpress" ? "text-gold/50" : "text-ember/50"}>◆</span>
+                    {h}
+                  </div>
+                ))}
+              </div>
+
+              {/* Tech stack */}
+              <div className="flex flex-wrap gap-2 pt-4 border-t border-white/5">
+                {p.tech.map((t) => (
+                  <span key={t} className="px-2.5 py-1 text-xs font-mono border border-white/10 text-cream/30">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Awards / Certs ──────────────────────────────────────────── */
 const highlights = [
   {
     label: "Hackathon",
@@ -431,12 +626,12 @@ const highlights = [
   },
 ];
 
-function Projects() {
+function Awards() {
   return (
-    <section id="projects" className="py-32 px-6 border-t border-white/5">
+    <section className="py-32 px-6 border-t border-white/5">
       <div className="max-w-6xl mx-auto">
         <div className="reveal mb-16">
-          <p className="font-mono text-xs tracking-[0.3em] text-ember uppercase mb-4">04 · Highlights</p>
+          <p className="font-mono text-xs tracking-[0.3em] text-ember uppercase mb-4">05 · Highlights</p>
           <h2 className="font-display text-4xl md:text-5xl leading-tight">Awards &<br /><span className="italic text-gold">Certifications</span></h2>
         </div>
 
@@ -469,7 +664,7 @@ function Education() {
     <section className="py-24 px-6 border-t border-white/5">
       <div className="max-w-6xl mx-auto">
         <div className="reveal mb-12">
-          <p className="font-mono text-xs tracking-[0.3em] text-ember uppercase mb-4">05 · Education</p>
+          <p className="font-mono text-xs tracking-[0.3em] text-ember uppercase mb-4">06 · Education</p>
           <h2 className="font-display text-4xl leading-tight">Academic<br /><span className="italic text-gold">Background</span></h2>
         </div>
 
@@ -514,7 +709,7 @@ function Contact() {
     <section id="contact" className="py-32 px-6 border-t border-white/5">
       <div className="max-w-6xl mx-auto">
         <div className="reveal text-center mb-16">
-          <p className="font-mono text-xs tracking-[0.3em] text-ember uppercase mb-4">06 · Contact</p>
+          <p className="font-mono text-xs tracking-[0.3em] text-ember uppercase mb-4">07 · Contact</p>
           <h2 className="font-display text-4xl md:text-6xl leading-tight mb-6">
             Let's build<br /><span className="italic text-gold">something great</span>
           </h2>
@@ -581,6 +776,7 @@ export default function Portfolio() {
         <Experience />
         <Skills />
         <Projects />
+        <Awards />
         <Education />
         <Contact />
       </main>
